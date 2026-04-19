@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commission Price Calculator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:sans-serif;padding:20px;background:transparent}
+.calc-wrap{background:#f0a882;border-radius:12px;padding:24px;max-width:700px;margin:0 auto}
+.field-block{background:#e8957040;border-radius:8px;padding:16px;margin-bottom:12px}
+.field-label{font-size:14px;font-weight:500;color:#5a2d0c;margin-bottom:10px}
+select{width:100%;padding:8px 12px;border-radius:6px;border:1px solid #c97a50;background:#fff;font-size:14px;color:#333}
+select:disabled{background:#f0e0d0;color:#999;cursor:not-allowed}
+.radio-group{display:flex;flex-direction:column;gap:8px}
+.radio-item{display:flex;align-items:center;gap:8px;font-size:14px;color:#5a2d0c;cursor:pointer}
+.radio-item input{accent-color:#c97a50;width:16px;height:16px}
+.radio-item.disabled{opacity:0.4;cursor:not-allowed}
+.slider-wrap{padding:4px 0}
+input[type=range]{width:100%;accent-color:#c97a50}
+.slider-labels{display:flex;justify-content:space-between;font-size:12px;color:#7a3d1a;margin-top:4px}
+.price-box{background:#2d2d2d;border-radius:8px;padding:16px 20px;margin:12px 0}
+.price-label{font-size:13px;color:#aaa}
+.price-value{font-size:32px;font-weight:500;color:#fff}
+.info-text{font-size:13px;color:#5a2d0c;line-height:1.6;margin-bottom:12px}
+.section-title{font-size:15px;font-weight:500;color:#5a2d0c;margin-bottom:8px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-col{display:flex;flex-direction:column;gap:6px}
+.form-col label{font-size:13px;color:#5a2d0c;font-weight:500}
+.form-col input{padding:9px 12px;border-radius:6px;border:1px solid #c97a50;background:#fff;font-size:14px;color:#333;outline:none}
+.terms-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:16px}
+.terms-row input{accent-color:#c97a50;width:16px;height:16px;margin-top:2px;flex-shrink:0}
+.terms-row label{font-size:13px;color:#5a2d0c;line-height:1.5;cursor:pointer}
+.submit-btn{width:100%;padding:12px;background:#2d2d2d;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer}
+.submit-btn:disabled{background:#999;cursor:not-allowed}
+.success-box{background:#d4edda;border:1px solid #b8dfc4;border-radius:8px;padding:16px;text-align:center;display:none;margin-top:12px}
+.success-box p{color:#2d6a3f;font-size:14px;line-height:1.6}
+.error-msg{font-size:12px;color:#c0392b;margin-top:4px;display:none}
+.info-msg{background:#f5dcc8;border-radius:6px;padding:10px 12px;font-size:13px;color:#7a3d1a;margin-top:8px;display:none;line-height:1.5}
+.sheet-adj-msg{background:#fdebd0;border-radius:6px;padding:8px 12px;font-size:12px;color:#a05a30;margin-top:6px;display:none}
+.commercial-msg{background:#fff3cd;border:1px solid #f0c060;border-radius:6px;padding:10px 12px;font-size:13px;color:#7a5700;margin-top:10px;display:none;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="calc-wrap">
+  <div class="field-block">
+    <div class="field-label">Type of use</div>
+    <select id="typeOfUse" onchange="calcPrice()">
+      <option value="private">Private</option>
+      <option value="commercial">Commercial</option>
+    </select>
+    <div class="commercial-msg" id="commercialMsg">⚠️ Commercial use includes an additional 20% fee on top of the base price.</div>
+  </div>
+  <div class="field-block">
+    <div class="field-label">Deadline Date</div>
+    <div class="radio-group">
+      <label class="radio-item"><input type="radio" name="deadline" value="0" checked> No Deadline</label>
+      <label class="radio-item"><input type="radio" name="deadline" value="1"> Deadline</label>
+    </div>
+  </div>
+  <div class="field-block">
+    <div class="field-label">Characters</div>
+    <div class="slider-wrap">
+      <input type="range" id="characters" min="1" max="4" step="1" value="1">
+      <div class="slider-labels" id="charLabels"></div>
+    </div>
+  </div>
+  <div class="field-block">
+    <div class="field-label">Sheet, Scene or Other?</div>
+    <div class="radio-group">
+      <label class="radio-item"><input type="radio" name="scene" value="0" id="sceneOther" checked> Other</label>
+      <label class="radio-item" id="sceneSheetLabel"><input type="radio" name="scene" value="10" id="sceneSheet"> Character Sheet</label>
+      <label class="radio-item"><input type="radio" name="scene" value="30" id="sceneScene"> Character Scene</label>
+    </div>
+    <div class="sheet-adj-msg" id="sheetAdjMsg">Character Sheet only works with 1 or 2 characters. Adjusted to 2.</div>
+  </div>
+  <div class="field-block">
+    <div class="field-label">Background</div>
+    <div class="radio-group">
+      <label class="radio-item" id="bgNoneLabel"><input type="radio" name="background" value="0" id="bgNone" checked> No Background</label>
+      <label class="radio-item" id="bgSimpleLabel"><input type="radio" name="background" value="10" id="bgSimple"> Simple Background</label>
+      <label class="radio-item" id="bgAdvanceLabel"><input type="radio" name="background" value="20" id="bgAdvance"> Advance Background</label>
+    </div>
+  </div>
+  <div class="field-block">
+    <div class="field-label">Character's body</div>
+    <select id="body">
+      <option value="0">Bust</option>
+      <option value="10">Half Body</option>
+      <option value="20">Knee up</option>
+      <option value="30">Full Body</option>
+    </select>
+    <div class="info-msg" id="sheetBodyMsg"></div>
+  </div>
+  <div style="margin:16px 0 8px">
+    <div class="section-title">Commission Request</div>
+    <p class="info-text">This is an estimate. Final price may decrease or increase once we discuss further details.<br>Additional fees for commercial use NOT included!!</p>
+    <div class="price-box">
+      <div class="price-label">Price</div>
+      <div class="price-value">$ <span id="priceDisplay">45</span></div>
+    </div>
+  </div>
+  <p class="info-text" style="margin-bottom:14px">If you wish to proceed with the commission request, please fill in the information below and submit the form. The artist will contact you by email within 2 working days.<br>(If it is an urgent commission, you will be contacted as soon as possible.)</p>
+  <div class="form-row">
+    <div class="form-col">
+      <label for="clientName">Your Name</label>
+      <input type="text" id="clientName" placeholder="Enter your name">
+      <span class="error-msg" id="nameErr">Please enter your name</span>
+    </div>
+    <div class="form-col">
+      <label for="clientEmail">Your Email</label>
+      <input type="email" id="clientEmail" placeholder="Enter your email">
+      <span class="error-msg" id="emailErr">Please enter a valid email</span>
+    </div>
+  </div>
+  <div class="field-block" style="margin-bottom:14px">
+    <div class="field-label">Additional Notes <span style="font-weight:400;font-size:12px">(optional)</span></div>
+    <textarea id="clientNotes" rows="3" style="width:100%;padding:8px 12px;border-radius:6px;border:1px solid #c97a50;background:#fff;font-size:14px;color:#333;resize:vertical;outline:none" placeholder="Any extra details about your commission..."></textarea>
+  </div>
+  <div class="terms-row">
+    <input type="checkbox" id="terms">
+    <label for="terms">BY CLICKING HERE, I STATE THAT I HAVE READ AND UNDERSTOOD THE TERMS AND CONDITIONS.</label>
+  </div>
+  <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit</button>
+  <div class="success-box" id="successBox">
+    <p>Your commission request has been submitted successfully!<br>The artist will contact you within 2 working days.</p>
+  </div>
+</div>
+<script>
+var SCRIPT_URL='https://script.google.com/macros/s/AKfycbx-dGG8c7SxyIvP9qZIMiX1_RCLFkRYZSV5C3tfNLeqCUXOs3vlKu_y3gov5VSAOnlw/exec';
+function getScene(){return document.querySelector('input[name="scene"]:checked').value;}
+function getBg(){return document.querySelector('input[name="background"]:checked').value;}
+function getChars(){return parseInt(document.getElementById('characters').value);}
+function getBody(){return document.getElementById('body').value;}
+function isCommercial(){return document.getElementById('typeOfUse').value==='commercial';}
+function updateSliderLabels(){
+  var slider=document.getElementById('characters');
+  var max=parseInt(slider.max);
+  var container=document.getElementById('charLabels');
+  container.innerHTML='';
+  for(var i=1;i<=max;i++){var span=document.createElement('span');span.textContent=i;container.appendChild(span);}
+}
+function updateRules(){
+  var scene=getScene();var chars=getChars();
+  var bodyEl=document.getElementById('body');
+  var sheetBodyMsg=document.getElementById('sheetBodyMsg');
+  var sheetAdjMsg=document.getElementById('sheetAdjMsg');
+  sheetAdjMsg.style.display='none';
+  if(scene==='10'){
+    var slider=document.getElementById('characters');
+    if(chars>2){slider.value=2;chars=2;sheetAdjMsg.style.display='block';}
+    slider.max=2;updateSliderLabels();
+    document.getElementById('bgNone').checked=true;
+    document.getElementById('bgNone').disabled=false;
+    document.getElementById('bgSimple').disabled=true;
+    document.getElementById('bgAdvance').disabled=true;
+    document.getElementById('bgNoneLabel').classList.remove('disabled');
+    document.getElementById('bgSimpleLabel').classList.add('disabled');
+    document.getElementById('bgAdvanceLabel').classList.add('disabled');
+    bodyEl.disabled=true;sheetBodyMsg.style.display='block';
+    sheetBodyMsg.textContent=chars===1?'Character sheet with 1 character includes: 1 Full Body + 2 Half Body poses.':'Character sheet with 2 characters includes: 1 Full Body + 1 Half Body pose.';
+  } else if(scene==='30'){
+    var slider=document.getElementById('characters');
+    slider.max=4;updateSliderLabels();
+    if(getBg()==='0')document.getElementById('bgSimple').checked=true;
+    if(getBody()==='0')bodyEl.value='10';
+    document.getElementById('bgNone').disabled=true;
+    document.getElementById('bgNoneLabel').classList.add('disabled');
+    document.getElementById('bgSimple').disabled=false;
+    document.getElementById('bgAdvance').disabled=false;
+    document.getElementById('bgSimpleLabel').classList.remove('disabled');
+    document.getElementById('bgAdvanceLabel').classList.remove('disabled');
+    bodyEl.disabled=false;bodyEl.querySelector('option[value="0"]').disabled=true;
+    sheetBodyMsg.style.display='none';
+  } else {
+    var slider=document.getElementById('characters');
+    slider.max=4;updateSliderLabels();
+    document.getElementById('bgNone').disabled=false;
+    document.getElementById('bgSimple').disabled=false;
+    document.getElementById('bgAdvance').disabled=false;
+    document.getElementById('bgNoneLabel').classList.remove('disabled');
+    document.getElementById('bgSimpleLabel').classList.remove('disabled');
+    document.getElementById('bgAdvanceLabel').classList.remove('disabled');
+    bodyEl.disabled=false;bodyEl.querySelector('option[value="0"]').disabled=false;
+    sheetBodyMsg.style.display='none';
+  }
+  var sheetLabel=document.getElementById('sceneSheetLabel');
+  var currentChars=parseInt(document.getElementById('characters').value);
+  if(scene!=='10'&&currentChars>2){document.getElementById('sceneSheet').disabled=true;sheetLabel.classList.add('disabled');}
+  else{document.getElementById('sceneSheet').disabled=false;sheetLabel.classList.remove('disabled');}
+  calcPrice();
+}
+function calcPrice(){
+  var base=45;var scene=getScene();var chars=getChars();
+  var bodyVal=scene==='10'?0:parseInt(getBody())||0;
+  var bgVal=parseInt(getBg())||0;var sceneVal=parseInt(scene)||0;
+  var deadline=parseInt(document.querySelector('input[name="deadline"]:checked').value)||0;
+  var subtotal=base+bodyVal+((chars-1)*30)+bgVal+sceneVal;
+  var afterDeadline=deadline===1?subtotal*1.10:subtotal;
+  var total=isCommercial()?Math.round(afterDeadline*1.20):Math.round(afterDeadline);
+  document.getElementById('priceDisplay').textContent=total;
+  document.getElementById('commercialMsg').style.display=isCommercial()?'block':'none';
+  return total;
+}
+document.getElementById('characters').addEventListener('input',updateRules);
+document.querySelectorAll('input[name="scene"]').forEach(function(el){el.addEventListener('change',updateRules);});
+document.querySelectorAll('input[name="background"]').forEach(function(el){el.addEventListener('change',calcPrice);});
+document.getElementById('body').addEventListener('change',calcPrice);
+document.querySelectorAll('input[name="deadline"]').forEach(function(el){el.addEventListener('change',calcPrice);});
+function submitForm(){
+  var name=document.getElementById('clientName').value.trim();
+  var email=document.getElementById('clientEmail').value.trim();
+  var terms=document.getElementById('terms').checked;
+  var valid=true;
+  document.getElementById('nameErr').style.display='none';
+  document.getElementById('emailErr').style.display='none';
+  if(!name){document.getElementById('nameErr').style.display='block';valid=false;}
+  if(!email||!email.includes('@')){document.getElementById('emailErr').style.display='block';valid=false;}
+  if(!terms){alert('Please accept the Terms and Conditions to proceed.');valid=false;}
+  if(!valid)return;
+  var price=calcPrice();
+  var bodyEl=document.getElementById('body');
+  var chars=document.getElementById('characters').value;
+  var bodyText=document.getElementById('sceneSheet').checked?(chars==='1'?'Sheet: 1 Full Body + 2 Half Body':'Sheet: 1 Full Body + 1 Half Body'):bodyEl.options[bodyEl.selectedIndex].text;
+  var bg=document.querySelector('input[name="background"]:checked').parentElement.textContent.trim();
+  var sceneText=document.querySelector('input[name="scene"]:checked').parentElement.textContent.trim();
+  var deadline=document.querySelector('input[name="deadline"]:checked').parentElement.textContent.trim();
+  var typeOfUse=document.getElementById('typeOfUse').options[document.getElementById('typeOfUse').selectedIndex].text;
+  var notes=document.getElementById('clientNotes').value.trim();
+  var btn=document.getElementById('submitBtn');
+  btn.textContent='Submitting...';btn.disabled=true;
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name:name,email:email,price:'$'+price,typeOfUse:typeOfUse,deadline:deadline,characters:chars,background:bg,body:bodyText,scene:sceneText,notes:notes,timestamp:new Date().toLocaleString()})
+  }).then(function(){btn.style.display='none';document.getElementById('successBox').style.display='block';})
+  .catch(function(){btn.textContent='Submit';btn.disabled=false;alert('Something went wrong. Please try again.');});
+}
+updateSliderLabels();
+</script>
+</body>
+</html>
