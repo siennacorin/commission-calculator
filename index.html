@@ -6,79 +6,119 @@
 <title>Commission Price Calculator</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:sans-serif;padding:20px;background:transparent}
-.calc-wrap{background:#f0a882;border-radius:12px;padding:24px;max-width:700px;margin:0 auto}
-.field-block{background:#e8957040;border-radius:8px;padding:16px;margin-bottom:12px}
-.field-label{font-size:14px;font-weight:500;color:#5a2d0c;margin-bottom:10px}
-select{width:100%;padding:8px 12px;border-radius:6px;border:1px solid #c97a50;background:#fff;font-size:14px;color:#333}
-select:disabled{background:#f0e0d0;color:#999;cursor:not-allowed}
-.radio-group{display:flex;flex-direction:column;gap:8px}
-.radio-item{display:flex;align-items:center;gap:8px;font-size:14px;color:#5a2d0c;cursor:pointer}
-.radio-item input{accent-color:#c97a50;width:16px;height:16px}
-.radio-item.disabled{opacity:0.4;cursor:not-allowed}
-.slider-wrap{padding:4px 0}
-input[type=range]{width:100%;accent-color:#c97a50}
-.slider-labels{display:flex;justify-content:space-between;font-size:12px;color:#7a3d1a;margin-top:4px}
-.price-box{background:#2d2d2d;border-radius:8px;padding:16px 20px;margin:12px 0}
-.price-label{font-size:13px;color:#aaa}
-.price-value{font-size:32px;font-weight:500;color:#fff}
-.info-text{font-size:13px;color:#5a2d0c;line-height:1.6;margin-bottom:12px}
-.section-title{font-size:15px;font-weight:500;color:#5a2d0c;margin-bottom:8px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.form-col{display:flex;flex-direction:column;gap:6px}
-.form-col label{font-size:13px;color:#5a2d0c;font-weight:500}
-.form-col input{padding:9px 12px;border-radius:6px;border:1px solid #c97a50;background:#fff;font-size:14px;color:#333;outline:none;width:100%}
-.form-col input:focus{border-color:#a05a30;box-shadow:0 0 0 2px #e8957060}
-.terms-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:16px}
-.terms-row input{accent-color:#c97a50;width:16px;height:16px;margin-top:2px;flex-shrink:0}
-.terms-row label{font-size:13px;color:#5a2d0c;line-height:1.5;cursor:pointer}
-.submit-btn{width:100%;padding:12px;background:#2d2d2d;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer}
-.submit-btn:disabled{background:#999;cursor:not-allowed}
-.success-box{background:#d4edda;border:1px solid #b8dfc4;border-radius:8px;padding:16px;text-align:center;display:none;margin-top:12px}
-.success-box p{color:#2d6a3f;font-size:14px;line-height:1.6}
-.error-msg{font-size:12px;color:#c0392b;margin-top:4px;display:none}
-.info-msg{background:#f5dcc8;border-radius:6px;padding:10px 12px;font-size:13px;color:#7a3d1a;margin-top:8px;display:none;line-height:1.5}
-.sheet-adj-msg{background:#fdebd0;border-radius:6px;padding:8px 12px;font-size:12px;color:#a05a30;margin-top:6px;display:none}
-.commercial-msg{background:#fff3cd;border:1px solid #f0c060;border-radius:6px;padding:10px 12px;font-size:13px;color:#7a5700;margin-top:10px;display:none;line-height:1.5}
-
-/* MOBILE RESPONSIVE */
-@media (max-width: 480px) {
-  body{padding:12px}
-  .calc-wrap{padding:16px;border-radius:10px}
-  .field-block{padding:12px}
-  .form-row{grid-template-columns:1fr}
-  .price-value{font-size:26px}
-  .field-label{font-size:13px}
-  .radio-item{font-size:13px}
-  select{font-size:13px}
-  .info-text{font-size:12px}
-  .submit-btn{font-size:14px;padding:11px}
-  .terms-row label{font-size:12px}
+body{
+  font-family:'Segoe UI',sans-serif;
+  min-height:100vh;
+  background-color:#e8a989;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg stroke='%23c47a5a' stroke-width='0.7' opacity='0.4'%3E%3Cline x1='0' y1='200' x2='200' y2='0'/%3E%3Cline x1='200' y1='0' x2='400' y2='200'/%3E%3Cline x1='400' y1='200' x2='200' y2='400'/%3E%3Cline x1='200' y1='400' x2='0' y2='200'/%3E%3Cline x1='0' y1='0' x2='200' y2='200'/%3E%3Cline x1='200' y1='200' x2='400' y2='0'/%3E%3Cline x1='0' y1='400' x2='200' y2='200'/%3E%3Cline x1='200' y1='200' x2='400' y2='400'/%3E%3Cline x1='100' y1='0' x2='0' y2='100'/%3E%3Cline x1='300' y1='0' x2='400' y2='100'/%3E%3Cline x1='0' y1='300' x2='100' y2='400'/%3E%3Cline x1='400' y1='300' x2='300' y2='400'/%3E%3Cline x1='100' y1='0' x2='400' y2='300'/%3E%3Cline x1='300' y1='0' x2='0' y2='300'/%3E%3Cline x1='0' y1='100' x2='300' y2='400'/%3E%3Cline x1='400' y1='100' x2='100' y2='400'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:400px 400px;
+  padding:30px 16px;
 }
+.calc-wrap{
+  background:#2e2a2a;
+  border-radius:16px;
+  padding:28px 24px;
+  max-width:680px;
+  margin:0 auto;
+  box-shadow:0 8px 32px rgba(0,0,0,0.35);
+}
+h2.calc-title{
+  text-align:center;
+  color:#e8a989;
+  font-size:22px;
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+p.calc-subtitle{
+  text-align:center;
+  color:#b08070;
+  font-size:12px;
+  letter-spacing:1px;
+  margin-bottom:24px;
+}
+.field-block{
+  background:#3a3535;
+  border-radius:10px;
+  padding:14px 16px;
+  margin-bottom:12px;
+  border:1px solid #4a4040;
+}
+.field-label{font-size:13px;font-weight:500;color:#e8a989;margin-bottom:10px;letter-spacing:0.5px;}
+select{width:100%;padding:8px 12px;border-radius:8px;border:1px solid #5a4a44;background:#2a2626;font-size:14px;color:#e8c4b0;outline:none;}
+select:disabled{background:#252020;color:#6a5a54;cursor:not-allowed;}
+select option{background:#2a2626;}
+.radio-group{display:flex;flex-direction:column;gap:9px;}
+.radio-item{display:flex;align-items:center;gap:9px;font-size:13px;color:#d4a090;cursor:pointer;}
+.radio-item input[type=radio]{accent-color:#e8a989;width:15px;height:15px;}
+.radio-item.disabled{opacity:0.35;cursor:not-allowed;}
+.slider-wrap{padding:4px 0;}
+input[type=range]{width:100%;accent-color:#e8a989;cursor:pointer;}
+.slider-labels{display:flex;justify-content:space-between;font-size:11px;color:#b08070;margin-top:4px;}
+.price-box{background:#1e1a1a;border-radius:10px;padding:16px 20px;margin:14px 0;border:1px solid #4a3a34;}
+.price-label{font-size:12px;color:#b08070;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.price-value{font-size:34px;font-weight:600;color:#e8a989;}
+.info-text{font-size:12px;color:#b08070;line-height:1.7;margin-bottom:12px;}
+.section-title{font-size:14px;font-weight:600;color:#e8a989;margin-bottom:6px;letter-spacing:1px;text-transform:uppercase;}
+.divider{border:none;border-top:1px solid #4a4040;margin:16px 0;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.form-col{display:flex;flex-direction:column;gap:6px;}
+.form-col label{font-size:12px;color:#e8a989;font-weight:500;letter-spacing:0.5px;}
+.form-col input{padding:9px 12px;border-radius:8px;border:1px solid #5a4a44;background:#2a2626;font-size:13px;color:#e8c4b0;outline:none;width:100%;}
+.form-col input:focus{border-color:#e8a989;box-shadow:0 0 0 2px #e8a98930;}
+textarea{width:100%;padding:9px 12px;border-radius:8px;border:1px solid #5a4a44;background:#2a2626;font-size:13px;color:#e8c4b0;outline:none;resize:vertical;font-family:inherit;}
+textarea:focus{border-color:#e8a989;}
+.terms-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;}
+.terms-row input{accent-color:#e8a989;width:15px;height:15px;margin-top:2px;flex-shrink:0;}
+.terms-row label{font-size:12px;color:#b08070;line-height:1.6;cursor:pointer;}
+.submit-btn{width:100%;padding:13px;background:#e8a989;color:#2e2a2a;border:none;border-radius:10px;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
+.submit-btn:hover{background:#d4957a;}
+.submit-btn:disabled{background:#6a5a54;color:#3a3535;cursor:not-allowed;}
+.success-box{background:#2a3a2a;border:1px solid #4a6a4a;border-radius:10px;padding:18px;text-align:center;display:none;margin-top:14px;}
+.success-box p{color:#90c490;font-size:13px;line-height:1.7;}
+.error-msg{font-size:11px;color:#e08080;margin-top:4px;display:none;}
+.info-msg{background:#3a3030;border-radius:8px;padding:10px 12px;font-size:12px;color:#e8a989;margin-top:8px;display:none;line-height:1.6;border-left:3px solid #e8a989;}
+.sheet-adj-msg{background:#3a3030;border-radius:8px;padding:8px 12px;font-size:12px;color:#d4a070;margin-top:6px;display:none;border-left:3px solid #d4a070;}
+.commercial-msg{background:#3a3020;border-radius:8px;padding:10px 12px;font-size:12px;color:#e8c870;margin-top:10px;display:none;line-height:1.6;border-left:3px solid #e8c870;}
 
-@media (max-width: 360px) {
-  body{padding:8px}
-  .calc-wrap{padding:12px}
+@media(max-width:480px){
+  body{padding:16px 10px;}
+  .calc-wrap{padding:20px 16px;border-radius:12px;}
+  .form-row{grid-template-columns:1fr;}
+  .price-value{font-size:28px;}
+  h2.calc-title{font-size:18px;}
+  .field-label{font-size:12px;}
+  .radio-item{font-size:12px;}
+}
+@media(max-width:360px){
+  body{padding:10px 8px;}
+  .calc-wrap{padding:16px 12px;}
 }
 </style>
 </head>
 <body>
 <div class="calc-wrap">
+  <h2 class="calc-title">Commission Calculator</h2>
+  <p class="calc-subtitle">Estimate your commission price</p>
+
   <div class="field-block">
-    <div class="field-label">Type of use</div>
+    <div class="field-label">Type of Use</div>
     <select id="typeOfUse" onchange="calcPrice()">
       <option value="private">Private</option>
       <option value="commercial">Commercial</option>
     </select>
     <div class="commercial-msg" id="commercialMsg">⚠️ Commercial use includes an additional 20% fee on top of the base price.</div>
   </div>
+
   <div class="field-block">
     <div class="field-label">Deadline Date</div>
     <div class="radio-group">
       <label class="radio-item"><input type="radio" name="deadline" value="0" checked> No Deadline</label>
-      <label class="radio-item"><input type="radio" name="deadline" value="1"> Deadline</label>
+      <label class="radio-item"><input type="radio" name="deadline" value="1"> Deadline <span style="font-size:11px;color:#b08070;margin-left:4px">(+10%)</span></label>
     </div>
   </div>
+
   <div class="field-block">
     <div class="field-label">Characters</div>
     <div class="slider-wrap">
@@ -86,6 +126,7 @@ input[type=range]{width:100%;accent-color:#c97a50}
       <div class="slider-labels" id="charLabels"></div>
     </div>
   </div>
+
   <div class="field-block">
     <div class="field-label">Sheet, Scene or Other?</div>
     <div class="radio-group">
@@ -95,6 +136,7 @@ input[type=range]{width:100%;accent-color:#c97a50}
     </div>
     <div class="sheet-adj-msg" id="sheetAdjMsg">Character Sheet only works with 1 or 2 characters. Adjusted to 2.</div>
   </div>
+
   <div class="field-block">
     <div class="field-label">Background</div>
     <div class="radio-group">
@@ -103,8 +145,9 @@ input[type=range]{width:100%;accent-color:#c97a50}
       <label class="radio-item" id="bgAdvanceLabel"><input type="radio" name="background" value="20" id="bgAdvance"> Advance Background</label>
     </div>
   </div>
+
   <div class="field-block">
-    <div class="field-label">Character's body</div>
+    <div class="field-label">Character's Body</div>
     <select id="body">
       <option value="0">Bust</option>
       <option value="10">Half Body</option>
@@ -113,15 +156,19 @@ input[type=range]{width:100%;accent-color:#c97a50}
     </select>
     <div class="info-msg" id="sheetBodyMsg"></div>
   </div>
-  <div style="margin:16px 0 8px">
-    <div class="section-title">Commission Request</div>
-    <p class="info-text">This is an estimate. Final price may decrease or increase once we discuss further details.<br>Additional fees for commercial use NOT included!!</p>
-    <div class="price-box">
-      <div class="price-label">Price</div>
-      <div class="price-value">$ <span id="priceDisplay">45</span></div>
-    </div>
+
+  <hr class="divider">
+
+  <div class="section-title">Commission Request</div>
+  <p class="info-text">This is an estimate. Final price may decrease or increase once we discuss further details.<br>Additional fees for commercial use NOT included!!</p>
+
+  <div class="price-box">
+    <div class="price-label">Estimated Price</div>
+    <div class="price-value">$ <span id="priceDisplay">45</span></div>
   </div>
-  <p class="info-text" style="margin-bottom:14px">If you wish to proceed with the commission request, please fill in the information below and submit the form. The artist will contact you by email within 2 working days.<br>(If it is an urgent commission, you will be contacted as soon as possible.)</p>
+
+  <p class="info-text">If you wish to proceed with the commission request, please fill in the information below and submit the form. The artist will contact you by email within 2 working days.<br>(If it is an urgent commission, you will be contacted as soon as possible.)</p>
+
   <div class="form-row">
     <div class="form-col">
       <label for="clientName">Your Name</label>
@@ -134,26 +181,40 @@ input[type=range]{width:100%;accent-color:#c97a50}
       <span class="error-msg" id="emailErr">Please enter a valid email</span>
     </div>
   </div>
+
   <div class="field-block" style="margin-bottom:14px">
-    <div class="field-label">Additional Notes <span style="font-weight:400;font-size:12px">(optional)</span></div>
-    <textarea id="clientNotes" rows="3" style="width:100%;padding:8px 12px;border-radius:6px;border:1px solid #c97a50;background:#fff;font-size:14px;color:#333;resize:vertical;outline:none" placeholder="Any extra details about your commission..."></textarea>
+    <div class="field-label">Additional Notes <span style="font-weight:400;font-size:11px;color:#b08070">(optional)</span></div>
+    <textarea id="clientNotes" rows="3" placeholder="Any extra details about your commission..."></textarea>
   </div>
+
   <div class="terms-row">
     <input type="checkbox" id="terms">
     <label for="terms">BY CLICKING HERE, I STATE THAT I HAVE READ AND UNDERSTOOD THE TERMS AND CONDITIONS.</label>
   </div>
-  <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit</button>
+
+  <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit Request</button>
   <div class="success-box" id="successBox">
-    <p>Your commission request has been submitted successfully!<br>The artist will contact you within 2 working days.</p>
+    <p>✓ Your commission request has been submitted successfully!<br>The artist will contact you within 2 working days.</p>
   </div>
 </div>
+
 <script>
 var SCRIPT_URL='https://script.google.com/macros/s/AKfycbx-dGG8c7SxyIvP9qZIMiX1_RCLFkRYZSV5C3tfNLeqCUXOs3vlKu_y3gov5VSAOnlw/exec';
+
+// Auto-detect artist name from URL
+function getArtistName(){
+  var host=window.location.hostname.toLowerCase();
+  if(host.indexOf('siennacorin')!==-1) return 'Sienna Corin';
+  if(host.indexOf('laylabaker')!==-1) return 'Layla Baker';
+  return 'Unknown';
+}
+
 function getScene(){return document.querySelector('input[name="scene"]:checked').value;}
 function getBg(){return document.querySelector('input[name="background"]:checked').value;}
 function getChars(){return parseInt(document.getElementById('characters').value);}
 function getBody(){return document.getElementById('body').value;}
 function isCommercial(){return document.getElementById('typeOfUse').value==='commercial';}
+
 function updateSliderLabels(){
   var slider=document.getElementById('characters');
   var max=parseInt(slider.max);
@@ -161,6 +222,7 @@ function updateSliderLabels(){
   container.innerHTML='';
   for(var i=1;i<=max;i++){var span=document.createElement('span');span.textContent=i;container.appendChild(span);}
 }
+
 function updateRules(){
   var scene=getScene();var chars=getChars();
   var bodyEl=document.getElementById('body');
@@ -211,6 +273,7 @@ function updateRules(){
   else{document.getElementById('sceneSheet').disabled=false;sheetLabel.classList.remove('disabled');}
   calcPrice();
 }
+
 function calcPrice(){
   var base=45;var scene=getScene();var chars=getChars();
   var bodyVal=scene==='10'?0:parseInt(getBody())||0;
@@ -223,11 +286,13 @@ function calcPrice(){
   document.getElementById('commercialMsg').style.display=isCommercial()?'block':'none';
   return total;
 }
+
 document.getElementById('characters').addEventListener('input',updateRules);
 document.querySelectorAll('input[name="scene"]').forEach(function(el){el.addEventListener('change',updateRules);});
 document.querySelectorAll('input[name="background"]').forEach(function(el){el.addEventListener('change',calcPrice);});
 document.getElementById('body').addEventListener('change',calcPrice);
 document.querySelectorAll('input[name="deadline"]').forEach(function(el){el.addEventListener('change',calcPrice);});
+
 function submitForm(){
   var name=document.getElementById('clientName').value.trim();
   var email=document.getElementById('clientEmail').value.trim();
@@ -248,12 +313,13 @@ function submitForm(){
   var deadline=document.querySelector('input[name="deadline"]:checked').parentElement.textContent.trim();
   var typeOfUse=document.getElementById('typeOfUse').options[document.getElementById('typeOfUse').selectedIndex].text;
   var notes=document.getElementById('clientNotes').value.trim();
+  var artist=getArtistName();
   var btn=document.getElementById('submitBtn');
   btn.textContent='Submitting...';btn.disabled=true;
   fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({name:name,email:email,price:'$'+price,typeOfUse:typeOfUse,deadline:deadline,characters:chars,background:bg,body:bodyText,scene:sceneText,notes:notes,timestamp:new Date().toLocaleString()})
+    body:JSON.stringify({artist:artist,name:name,email:email,price:'$'+price,typeOfUse:typeOfUse,deadline:deadline,characters:chars,background:bg,body:bodyText,scene:sceneText,notes:notes,timestamp:new Date().toLocaleString()})
   }).then(function(){btn.style.display='none';document.getElementById('successBox').style.display='block';})
-  .catch(function(){btn.textContent='Submit';btn.disabled=false;alert('Something went wrong. Please try again.');});
+  .catch(function(){btn.textContent='Submit Request';btn.disabled=false;alert('Something went wrong. Please try again.');});
 }
 updateSliderLabels();
 </script>
