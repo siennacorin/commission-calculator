@@ -6,45 +6,11 @@
 <title>Commission Price Calculator</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:'Segoe UI',sans-serif;
-  min-height:100vh;
-  background-color:#e8a989;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg stroke='%23c47a5a' stroke-width='0.7' opacity='0.4'%3E%3Cline x1='0' y1='200' x2='200' y2='0'/%3E%3Cline x1='200' y1='0' x2='400' y2='200'/%3E%3Cline x1='400' y1='200' x2='200' y2='400'/%3E%3Cline x1='200' y1='400' x2='0' y2='200'/%3E%3Cline x1='0' y1='0' x2='200' y2='200'/%3E%3Cline x1='200' y1='200' x2='400' y2='0'/%3E%3Cline x1='0' y1='400' x2='200' y2='200'/%3E%3Cline x1='200' y1='200' x2='400' y2='400'/%3E%3Cline x1='100' y1='0' x2='0' y2='100'/%3E%3Cline x1='300' y1='0' x2='400' y2='100'/%3E%3Cline x1='0' y1='300' x2='100' y2='400'/%3E%3Cline x1='400' y1='300' x2='300' y2='400'/%3E%3Cline x1='100' y1='0' x2='400' y2='300'/%3E%3Cline x1='300' y1='0' x2='0' y2='300'/%3E%3Cline x1='0' y1='100' x2='300' y2='400'/%3E%3Cline x1='400' y1='100' x2='100' y2='400'/%3E%3C/g%3E%3C/svg%3E");
-  background-size:400px 400px;
-  padding:30px 16px;
-}
-.calc-wrap{
-  background:#2e2a2a;
-  border-radius:16px;
-  padding:28px 24px;
-  max-width:680px;
-  margin:0 auto;
-  box-shadow:0 8px 32px rgba(0,0,0,0.35);
-}
-h2.calc-title{
-  text-align:center;
-  color:#e8a989;
-  font-size:22px;
-  font-weight:600;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  margin-bottom:6px;
-}
-p.calc-subtitle{
-  text-align:center;
-  color:#b08070;
-  font-size:12px;
-  letter-spacing:1px;
-  margin-bottom:24px;
-}
-.field-block{
-  background:#3a3535;
-  border-radius:10px;
-  padding:14px 16px;
-  margin-bottom:12px;
-  border:1px solid #4a4040;
-}
+body{font-family:'Segoe UI',sans-serif;min-height:100vh;background-color:#e8a989;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg stroke='%23c47a5a' stroke-width='0.7' opacity='0.4'%3E%3Cline x1='0' y1='200' x2='200' y2='0'/%3E%3Cline x1='200' y1='0' x2='400' y2='200'/%3E%3Cline x1='400' y1='200' x2='200' y2='400'/%3E%3Cline x1='200' y1='400' x2='0' y2='200'/%3E%3Cline x1='0' y1='0' x2='200' y2='200'/%3E%3Cline x1='200' y1='200' x2='400' y2='0'/%3E%3Cline x1='0' y1='400' x2='200' y2='200'/%3E%3Cline x1='200' y1='200' x2='400' y2='400'/%3E%3Cline x1='100' y1='0' x2='0' y2='100'/%3E%3Cline x1='300' y1='0' x2='400' y2='100'/%3E%3Cline x1='0' y1='300' x2='100' y2='400'/%3E%3Cline x1='400' y1='300' x2='300' y2='400'/%3E%3Cline x1='100' y1='0' x2='400' y2='300'/%3E%3Cline x1='300' y1='0' x2='0' y2='300'/%3E%3Cline x1='0' y1='100' x2='300' y2='400'/%3E%3Cline x1='400' y1='100' x2='100' y2='400'/%3E%3C/g%3E%3C/svg%3E");background-size:400px 400px;padding:30px 16px;}
+.calc-wrap{background:#2e2a2a;border-radius:16px;padding:28px 24px;max-width:680px;margin:0 auto;box-shadow:0 8px 32px rgba(0,0,0,0.35);}
+h2.calc-title{text-align:center;color:#e8a989;font-size:22px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+p.calc-subtitle{text-align:center;color:#b08070;font-size:12px;letter-spacing:1px;margin-bottom:24px;}
+.field-block{background:#3a3535;border-radius:10px;padding:14px 16px;margin-bottom:12px;border:1px solid #4a4040;}
 .field-label{font-size:13px;font-weight:500;color:#e8a989;margin-bottom:10px;letter-spacing:0.5px;}
 select{width:100%;padding:8px 12px;border-radius:8px;border:1px solid #5a4a44;background:#2a2626;font-size:14px;color:#e8c4b0;outline:none;}
 select:disabled{background:#252020;color:#6a5a54;cursor:not-allowed;}
@@ -81,27 +47,14 @@ textarea:focus{border-color:#e8a989;}
 .info-msg{background:#3a3030;border-radius:8px;padding:10px 12px;font-size:12px;color:#e8a989;margin-top:8px;display:none;line-height:1.6;border-left:3px solid #e8a989;}
 .sheet-adj-msg{background:#3a3030;border-radius:8px;padding:8px 12px;font-size:12px;color:#d4a070;margin-top:6px;display:none;border-left:3px solid #d4a070;}
 .commercial-msg{background:#3a3020;border-radius:8px;padding:10px 12px;font-size:12px;color:#e8c870;margin-top:10px;display:none;line-height:1.6;border-left:3px solid #e8c870;}
-
-@media(max-width:480px){
-  body{padding:16px 10px;}
-  .calc-wrap{padding:20px 16px;border-radius:12px;}
-  .form-row{grid-template-columns:1fr;}
-  .price-value{font-size:28px;}
-  h2.calc-title{font-size:18px;}
-  .field-label{font-size:12px;}
-  .radio-item{font-size:12px;}
-}
-@media(max-width:360px){
-  body{padding:10px 8px;}
-  .calc-wrap{padding:16px 12px;}
-}
+@media(max-width:480px){body{padding:16px 10px;}.calc-wrap{padding:20px 16px;border-radius:12px;}.form-row{grid-template-columns:1fr;}.price-value{font-size:28px;}h2.calc-title{font-size:18px;}.field-label{font-size:12px;}.radio-item{font-size:12px;}}
+@media(max-width:360px){body{padding:10px 8px;}.calc-wrap{padding:16px 12px;}}
 </style>
 </head>
 <body>
 <div class="calc-wrap">
   <h2 class="calc-title">Commission Calculator</h2>
   <p class="calc-subtitle">Estimate your commission price</p>
-
   <div class="field-block">
     <div class="field-label">Type of Use</div>
     <select id="typeOfUse" onchange="calcPrice()">
@@ -110,7 +63,6 @@ textarea:focus{border-color:#e8a989;}
     </select>
     <div class="commercial-msg" id="commercialMsg">⚠️ Commercial use includes an additional 20% fee on top of the base price.</div>
   </div>
-
   <div class="field-block">
     <div class="field-label">Deadline Date</div>
     <div class="radio-group">
@@ -118,15 +70,14 @@ textarea:focus{border-color:#e8a989;}
       <label class="radio-item"><input type="radio" name="deadline" value="1"> Deadline <span style="font-size:11px;color:#b08070;margin-left:4px">(+10%)</span></label>
     </div>
   </div>
-
   <div class="field-block">
     <div class="field-label">Characters</div>
     <div class="slider-wrap">
       <input type="range" id="characters" min="1" max="4" step="1" value="1">
       <div class="slider-labels" id="charLabels"></div>
     </div>
+    <div class="info-msg" id="charMsg"></div>
   </div>
-
   <div class="field-block">
     <div class="field-label">Sheet, Scene or Other?</div>
     <div class="radio-group">
@@ -136,7 +87,6 @@ textarea:focus{border-color:#e8a989;}
     </div>
     <div class="sheet-adj-msg" id="sheetAdjMsg">Character Sheet only works with 1 or 2 characters. Adjusted to 2.</div>
   </div>
-
   <div class="field-block">
     <div class="field-label">Background</div>
     <div class="radio-group">
@@ -145,7 +95,6 @@ textarea:focus{border-color:#e8a989;}
       <label class="radio-item" id="bgAdvanceLabel"><input type="radio" name="background" value="20" id="bgAdvance"> Advance Background</label>
     </div>
   </div>
-
   <div class="field-block">
     <div class="field-label">Character's Body</div>
     <select id="body">
@@ -156,19 +105,14 @@ textarea:focus{border-color:#e8a989;}
     </select>
     <div class="info-msg" id="sheetBodyMsg"></div>
   </div>
-
   <hr class="divider">
-
   <div class="section-title">Commission Request</div>
   <p class="info-text">This is an estimate. Final price may decrease or increase once we discuss further details.<br>Additional fees for commercial use NOT included!!</p>
-
   <div class="price-box">
     <div class="price-label">Estimated Price</div>
     <div class="price-value">$ <span id="priceDisplay">45</span></div>
   </div>
-
   <p class="info-text">If you wish to proceed with the commission request, please fill in the information below and submit the form. The artist will contact you by email within 2 working days.<br>(If it is an urgent commission, you will be contacted as soon as possible.)</p>
-
   <div class="form-row">
     <div class="form-col">
       <label for="clientName">Your Name</label>
@@ -181,34 +125,28 @@ textarea:focus{border-color:#e8a989;}
       <span class="error-msg" id="emailErr">Please enter a valid email</span>
     </div>
   </div>
-
   <div class="field-block" style="margin-bottom:14px">
     <div class="field-label">Additional Notes <span style="font-weight:400;font-size:11px;color:#b08070">(optional)</span></div>
     <textarea id="clientNotes" rows="3" placeholder="Any extra details about your commission..."></textarea>
   </div>
-
   <div class="terms-row">
     <input type="checkbox" id="terms">
     <label for="terms">BY CLICKING HERE, I STATE THAT I HAVE READ AND UNDERSTOOD THE TERMS AND CONDITIONS.</label>
   </div>
-
   <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit Request</button>
   <div class="success-box" id="successBox">
     <p>✓ Your commission request has been submitted successfully!<br>The artist will contact you within 2 working days.</p>
   </div>
 </div>
-
 <script>
-var SCRIPT_URL='https://script.google.com/macros/s/AKfycbzF7QdCeRhybQiLy5gREBlUlKRZ8u2pQG2YVqU7kAOtcH_JTxRiR7V3wGpTyKsdeIUe/exec';
+var SCRIPT_URL='https://script.google.com/macros/s/AKfycbxROZirZuM57S5NYReHeqUL-IsG4nAxgWfgSRdyeSfJDcROuELe3vO6US_Az0kxmRQR/exec';
 
-// Auto-detect artist name from URL
 function getArtistName(){
   var host=window.location.hostname.toLowerCase();
   if(host.indexOf('siennacorin')!==-1) return 'Sienna Corin';
   if(host.indexOf('laylabaker')!==-1) return 'Layla Baker';
   return 'Unknown';
 }
-
 function getScene(){return document.querySelector('input[name="scene"]:checked').value;}
 function getBg(){return document.querySelector('input[name="background"]:checked').value;}
 function getChars(){return parseInt(document.getElementById('characters').value);}
@@ -221,14 +159,24 @@ function updateSliderLabels(){
   var container=document.getElementById('charLabels');
   container.innerHTML='';
   for(var i=1;i<=max;i++){var span=document.createElement('span');span.textContent=i;container.appendChild(span);}
+  var chars=parseInt(slider.value);
+  var charMsg=document.getElementById('charMsg');
+  if(chars>1){
+    charMsg.style.display='block';
+    charMsg.textContent='This refers to the number of characters in a single artwork. e.g. selecting '+chars+' means 1 commission with '+chars+' characters together in one frame.';
+  } else {
+    charMsg.style.display='none';
+  }
 }
 
 function updateRules(){
-  var scene=getScene();var chars=getChars();
+  var scene=getScene();
+  var chars=getChars();
   var bodyEl=document.getElementById('body');
   var sheetBodyMsg=document.getElementById('sheetBodyMsg');
   var sheetAdjMsg=document.getElementById('sheetAdjMsg');
   sheetAdjMsg.style.display='none';
+
   if(scene==='10'){
     var slider=document.getElementById('characters');
     if(chars>2){slider.value=2;chars=2;sheetAdjMsg.style.display='block';}
@@ -240,20 +188,22 @@ function updateRules(){
     document.getElementById('bgNoneLabel').classList.remove('disabled');
     document.getElementById('bgSimpleLabel').classList.add('disabled');
     document.getElementById('bgAdvanceLabel').classList.add('disabled');
-    bodyEl.disabled=true;sheetBodyMsg.style.display='block';
-    sheetBodyMsg.textContent=chars===1?'Character sheet with 1 character includes: 1 Full Body + 2 Half Body poses.':'Character sheet with 2 characters includes: 1 Full Body + 1 Half Body pose.';
+    bodyEl.disabled=true;
+    sheetBodyMsg.style.display='block';
+    sheetBodyMsg.textContent=chars===1?'Character sheet with 1 character includes: 1 Full Body + 2 Bust poses.':'Character sheet with 2 characters includes: 1 Full Body + 1 Bust pose.';
   } else if(scene==='30'){
     var slider=document.getElementById('characters');
     slider.max=4;updateSliderLabels();
-    if(getBg()==='0')document.getElementById('bgSimple').checked=true;
-    if(getBody()==='0')bodyEl.value='10';
+    if(getBg()==='0') document.getElementById('bgSimple').checked=true;
+    if(getBody()==='0') bodyEl.value='10';
     document.getElementById('bgNone').disabled=true;
     document.getElementById('bgNoneLabel').classList.add('disabled');
     document.getElementById('bgSimple').disabled=false;
     document.getElementById('bgAdvance').disabled=false;
     document.getElementById('bgSimpleLabel').classList.remove('disabled');
     document.getElementById('bgAdvanceLabel').classList.remove('disabled');
-    bodyEl.disabled=false;bodyEl.querySelector('option[value="0"]').disabled=true;
+    bodyEl.disabled=false;
+    bodyEl.querySelector('option[value="0"]').disabled=true;
     sheetBodyMsg.style.display='none';
   } else {
     var slider=document.getElementById('characters');
@@ -264,22 +214,43 @@ function updateRules(){
     document.getElementById('bgNoneLabel').classList.remove('disabled');
     document.getElementById('bgSimpleLabel').classList.remove('disabled');
     document.getElementById('bgAdvanceLabel').classList.remove('disabled');
-    bodyEl.disabled=false;bodyEl.querySelector('option[value="0"]').disabled=false;
+    bodyEl.disabled=false;
     sheetBodyMsg.style.display='none';
+    if(chars>1){
+      bodyEl.querySelector('option[value="0"]').disabled=true;
+      if(bodyEl.value==='0') bodyEl.value='10';
+    } else {
+      bodyEl.querySelector('option[value="0"]').disabled=false;
+    }
   }
+
   var sheetLabel=document.getElementById('sceneSheetLabel');
   var currentChars=parseInt(document.getElementById('characters').value);
-  if(scene!=='10'&&currentChars>2){document.getElementById('sceneSheet').disabled=true;sheetLabel.classList.add('disabled');}
-  else{document.getElementById('sceneSheet').disabled=false;sheetLabel.classList.remove('disabled');}
+  if(scene!=='10'&&currentChars>2){
+    document.getElementById('sceneSheet').disabled=true;
+    sheetLabel.classList.add('disabled');
+  } else {
+    document.getElementById('sceneSheet').disabled=false;
+    sheetLabel.classList.remove('disabled');
+  }
   calcPrice();
 }
 
 function calcPrice(){
-  var base=45;var scene=getScene();var chars=getChars();
-  var bodyVal=scene==='10'?0:parseInt(getBody())||0;
-  var bgVal=parseInt(getBg())||0;var sceneVal=parseInt(scene)||0;
+  var scene=getScene();
+  var chars=getChars();
   var deadline=parseInt(document.querySelector('input[name="deadline"]:checked').value)||0;
-  var subtotal=base+bodyVal+((chars-1)*30)+bgVal+sceneVal;
+  var subtotal;
+  if(scene==='10'){
+    subtotal=chars===1?150:200;
+  } else {
+    var base=45;
+    var bodyVal=parseInt(getBody())||0;
+    var bgVal=parseInt(getBg())||0;
+    var sceneVal=parseInt(scene)||0;
+    var charAdd=[0,0,50,75,100][chars]||0;
+    subtotal=base+bodyVal+charAdd+bgVal+sceneVal;
+  }
   var afterDeadline=deadline===1?subtotal*1.10:subtotal;
   var total=isCommercial()?Math.round(afterDeadline*1.20):Math.round(afterDeadline);
   document.getElementById('priceDisplay').textContent=total;
@@ -307,7 +278,7 @@ function submitForm(){
   var price=calcPrice();
   var bodyEl=document.getElementById('body');
   var chars=document.getElementById('characters').value;
-  var bodyText=document.getElementById('sceneSheet').checked?(chars==='1'?'Sheet: 1 Full Body + 2 Half Body':'Sheet: 1 Full Body + 1 Half Body'):bodyEl.options[bodyEl.selectedIndex].text;
+  var bodyText=document.getElementById('sceneSheet').checked?(chars==='1'?'Sheet: 1 Full Body + 2 Bust':'Sheet: 1 Full Body + 1 Bust'):bodyEl.options[bodyEl.selectedIndex].text;
   var bg=document.querySelector('input[name="background"]:checked').parentElement.textContent.trim();
   var sceneText=document.querySelector('input[name="scene"]:checked').parentElement.textContent.trim();
   var deadline=document.querySelector('input[name="deadline"]:checked').parentElement.textContent.trim();
@@ -321,7 +292,11 @@ function submitForm(){
   }).then(function(){btn.style.display='none';document.getElementById('successBox').style.display='block';})
   .catch(function(){btn.textContent='Submit Request';btn.disabled=false;alert('Something went wrong. Please try again.');});
 }
+
 updateSliderLabels();
+window.onload=function(){
+  alert("Please Note!\n\nOne commission request = One frame of art. If you want multiple frames then you have to request for it separately.");
+};
 </script>
 </body>
 </html>
