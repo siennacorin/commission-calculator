@@ -38,6 +38,8 @@ textarea:focus{border-color:#e8a989;}
 .terms-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;}
 .terms-row input{accent-color:#e8a989;width:15px;height:15px;margin-top:2px;flex-shrink:0;}
 .terms-row label{font-size:12px;color:#b08070;line-height:1.6;cursor:pointer;}
+.terms-link{color:#e8a989;text-decoration:underline;cursor:pointer;font-weight:600;}
+.terms-link:hover{color:#d4957a;}
 .submit-btn{width:100%;padding:13px;background:#e8a989;color:#2e2a2a;border:none;border-radius:10px;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
 .submit-btn:hover{background:#d4957a;}
 .submit-btn:disabled{background:#6a5a54;color:#3a3535;cursor:not-allowed;}
@@ -47,11 +49,144 @@ textarea:focus{border-color:#e8a989;}
 .info-msg{background:#3a3030;border-radius:8px;padding:10px 12px;font-size:12px;color:#e8a989;margin-top:8px;display:none;line-height:1.6;border-left:3px solid #e8a989;}
 .sheet-adj-msg{background:#3a3030;border-radius:8px;padding:8px 12px;font-size:12px;color:#d4a070;margin-top:6px;display:none;border-left:3px solid #d4a070;}
 .commercial-msg{background:#3a3020;border-radius:8px;padding:10px 12px;font-size:12px;color:#e8c870;margin-top:10px;display:none;line-height:1.6;border-left:3px solid #e8c870;}
-@media(max-width:480px){body{padding:16px 10px;}.calc-wrap{padding:20px 16px;border-radius:12px;}.form-row{grid-template-columns:1fr;}.price-value{font-size:28px;}h2.calc-title{font-size:18px;}.field-label{font-size:12px;}.radio-item{font-size:12px;}}
+
+/* MODAL */
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:1000;display:none;justify-content:center;align-items:center;padding:16px;}
+.modal-overlay.active{display:flex;}
+.modal-box{background:#2e2a2a;border-radius:16px;padding:0;max-width:660px;width:100%;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.5);border:1px solid #4a4040;}
+.modal-header{padding:20px 24px 16px;border-bottom:1px solid #4a4040;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+.modal-header h3{color:#e8a989;font-size:16px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;}
+.modal-close{background:none;border:none;color:#b08070;font-size:22px;cursor:pointer;line-height:1;padding:0 4px;}
+.modal-close:hover{color:#e8a989;}
+.modal-body{padding:20px 24px;overflow-y:auto;flex:1;}
+.modal-body h4{color:#e8a989;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin:18px 0 10px;border-bottom:1px solid #4a4040;padding-bottom:6px;}
+.modal-body h4:first-child{margin-top:0;}
+.modal-body ul{list-style:none;padding:0;}
+.modal-body ul li{color:#c4a090;font-size:12px;line-height:1.8;padding:4px 0 4px 14px;position:relative;}
+.modal-body ul li::before{content:"⚬";position:absolute;left:0;color:#e8a989;}
+.modal-body ul li ul{margin-top:4px;}
+.modal-body ul li ul li{padding-left:20px;color:#b08070;}
+.modal-body ul li ul li::before{content:"•";}
+.modal-footer{padding:16px 24px;border-top:1px solid #4a4040;flex-shrink:0;}
+.modal-accept-btn{width:100%;padding:11px;background:#e8a989;color:#2e2a2a;border:none;border-radius:8px;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;}
+.modal-accept-btn:hover{background:#d4957a;}
+
+@media(max-width:480px){body{padding:16px 10px;}.calc-wrap{padding:20px 16px;border-radius:12px;}.form-row{grid-template-columns:1fr;}.price-value{font-size:28px;}h2.calc-title{font-size:18px;}.field-label{font-size:12px;}.radio-item{font-size:12px;}.modal-box{max-height:90vh;}.modal-header{padding:16px 16px 12px;}.modal-body{padding:16px;}.modal-footer{padding:12px 16px;}}
 @media(max-width:360px){body{padding:10px 8px;}.calc-wrap{padding:16px 12px;}}
 </style>
 </head>
 <body>
+
+<!-- TERMS MODAL -->
+<div class="modal-overlay" id="termsModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Terms and Conditions</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <h4>General Conditions</h4>
+      <ul>
+        <li>The commission is accepted when the artist says so. Sending money without the artist having accepted the commission does not mean the artist will accept your request. If the artist decides not to accept the request, the money will be refunded.</li>
+        <li>The artist has the right to deny a request.</li>
+        <li>The artist will make it clear whether she accepts the request or not, depending on how comfortable / capable she is with the proposal.</li>
+        <li>The prices shown are estimations. Prices may increase according to the amount of details or extras, but rarely decrease.</li>
+        <li>Illustrations will be done in the artist's style. No other style requests will be accepted (e.g. realism; someone else's art style).</li>
+        <li>Be aware that commission backgrounds can increase the final price, which varies according to the complexity of the background.</li>
+        <li>The artist keeps all the rights of the illustration created. She has the right to share the commissioned artwork on her social media and portfolio. However, the client can ask for keeping the art private or not showing it until a particular date.</li>
+      </ul>
+
+      <h4>Commission Details</h4>
+      <ul>
+        <li>Once the artist contacts the client by e-mail, she will ask for more information before accepting. Less detail gives more creativity to the creator, and the end result may not be as accurate. The customer is responsible for giving the necessary information so that no more changes need to be made than are allowed.</li>
+        <li>The basic information includes:
+          <ul>
+            <li>Description of the idea</li>
+            <li>Information of the client</li>
+            <li>References (photos, moodboards, inspirational images, Pinterest board)</li>
+          </ul>
+        </li>
+        <li>Extra information that can be shared:
+          <ul>
+            <li>Detailed descriptions of features, outfits…</li>
+            <li>Personalities and background of the characters, their relationships if there are more than one character</li>
+            <li>Mood / atmosphere of the piece</li>
+            <li>Size of the canvas, if any</li>
+            <li>Deadlines, if any</li>
+            <li>A short story of their relationship dynamic if there are more than one character</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h4>Process and Changes</h4>
+      <ul>
+        <li>The client will receive images of the process, depending on the type of commission.</li>
+        <li>The client can receive multiple sketches at the start of the process, depending on the artist and the creative freedom she has.</li>
+        <li>The most common pictures the client will receive will be sketch, lineart, base color and finished piece.</li>
+        <li>The artist has the right to increase or decrease the number of steps to show.</li>
+        <li>Substantial changes can only be made in the sketch.</li>
+        <li>Changes that should have been made in previous phases can increase the price between $10 and $30 depending on complexity.</li>
+      </ul>
+
+      <h4>Final Product</h4>
+      <ul>
+        <li>The file will be sent in high resolution (300 DPI), as JPEG, PNG or PDF — client's choice — via email.</li>
+        <li>If the customer wishes to receive the illustration in another format, this must be specified before the commission process is initiated.</li>
+        <li>The product will be delivered with a watermark or signature.</li>
+        <li>It is the buyer's responsibility to save the files received. Loss of the files is not the responsibility of the creator.</li>
+        <li>The artist will not provide a physical copy of the digital piece.</li>
+      </ul>
+
+      <h4>Deadlines</h4>
+      <ul>
+        <li>The time to complete the work ranges from 4 to 8 weeks normally, depending on the complexity and the availability of the artist. If more time is needed, the commissioner will be notified in advance.</li>
+        <li>The artist may not be able to start the commission immediately. The client will be informed when it will be possible to start.</li>
+        <li>Urgent commissions have an additional charge, since the artist has to adapt her schedule to complete it on time.</li>
+      </ul>
+
+      <h4>Price and Payment</h4>
+      <ul>
+        <li>Prices are specified in USD. If paying in EUROS (€), the price depends on PayPal's conversion rates, which includes approximately a 3.5% to 4.5% fee.</li>
+        <li>Payment will be done through PayPal with the "I trust this person" option.</li>
+        <li>Two payment alternatives are allowed:
+          <ul>
+            <li>Full payment in advance (before the sketch)</li>
+            <li>50% up-front when accepting the commission and the other 50% after sketch approval</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h4>Artist Copyright, Credit and Reproduction</h4>
+      <ul>
+        <li>The client is paying for the artist's work and the finished product. The artist keeps all rights to the artwork.</li>
+        <li>It is forbidden to remove or cover the artist's signature.</li>
+        <li>The commercial use of private art is forbidden.</li>
+        <li>The client must credit the artist properly:
+          <ul>
+            <li>Social media: @siennacorin.art</li>
+            <li>Commercial use pricing is 20% more than personal use</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h4>Refunds</h4>
+      <ul>
+        <li>Refunds aren't accepted except in the following cases:
+          <ul>
+            <li>The finished product hasn't been provided in three months</li>
+            <li>The artist does not believe she is able to deliver what was desired after accepting the commission</li>
+          </ul>
+        </li>
+        <li>Steps of the progress are provided during the commission process, which means disliking the final result or changing of mind will never be considered a valid reason for a refund.</li>
+        <li>In the event that the artist is unable to complete the commission due to unforeseen circumstances, the client will be refunded any payments made.</li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-accept-btn" onclick="acceptTerms()">I Have Read and Understood</button>
+    </div>
+  </div>
+</div>
+
 <div class="calc-wrap">
   <h2 class="calc-title">Commission Calculator</h2>
   <p class="calc-subtitle">Estimate your commission price</p>
@@ -131,24 +266,21 @@ textarea:focus{border-color:#e8a989;}
   </div>
   <div class="terms-row">
     <input type="checkbox" id="terms">
-    <label for="terms">BY CLICKING HERE, I STATE THAT I HAVE READ AND UNDERSTOOD THE TERMS AND CONDITIONS.</label>
+    <label for="terms">BY CLICKING HERE, I STATE THAT I HAVE READ AND UNDERSTOOD THE <span class="terms-link" onclick="openModal()">TERMS AND CONDITIONS</span>.</label>
   </div>
   <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit Request</button>
   <div class="success-box" id="successBox">
     <p>✓ Your commission request has been submitted successfully!<br>The artist will contact you within 2 working days.</p>
   </div>
 </div>
+
 <script>
 var SCRIPT_URL='https://script.google.com/macros/s/AKfycbxROZirZuM57S5NYReHeqUL-IsG4nAxgWfgSRdyeSfJDcROuELe3vO6US_Az0kxmRQR/exec';
 
-// UPDATED PRICING - June 2025
-// Base: $65 (Bust, 1 char, no BG)
-// Half Body: +$20 | Knee-Up: +$35 | Full Body: +$55
-// 2nd Char: +$65 | 3rd Char: +$90 | 4th Char: +$115
-// Simple BG: +$20 | Advanced BG: +$45
-// Character Scene: +$45
-// Sheet 1 char: $185 flat | Sheet 2 char: $250 flat
-// Rush: +10% | Commercial: +20%
+function openModal(){document.getElementById('termsModal').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('termsModal').classList.remove('active');document.body.style.overflow='';}
+function acceptTerms(){document.getElementById('terms').checked=true;closeModal();}
+document.getElementById('termsModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 
 function getArtistName(){
   var host=window.location.hostname.toLowerCase();
@@ -185,7 +317,6 @@ function updateRules(){
   var sheetBodyMsg=document.getElementById('sheetBodyMsg');
   var sheetAdjMsg=document.getElementById('sheetAdjMsg');
   sheetAdjMsg.style.display='none';
-
   if(scene==='10'){
     var slider=document.getElementById('characters');
     if(chars>2){slider.value=2;chars=2;sheetAdjMsg.style.display='block';}
@@ -232,16 +363,10 @@ function updateRules(){
       bodyEl.querySelector('option[value="0"]').disabled=false;
     }
   }
-
   var sheetLabel=document.getElementById('sceneSheetLabel');
   var currentChars=parseInt(document.getElementById('characters').value);
-  if(scene!=='10'&&currentChars>2){
-    document.getElementById('sceneSheet').disabled=true;
-    sheetLabel.classList.add('disabled');
-  } else {
-    document.getElementById('sceneSheet').disabled=false;
-    sheetLabel.classList.remove('disabled');
-  }
+  if(scene!=='10'&&currentChars>2){document.getElementById('sceneSheet').disabled=true;sheetLabel.classList.add('disabled');}
+  else{document.getElementById('sceneSheet').disabled=false;sheetLabel.classList.remove('disabled');}
   calcPrice();
 }
 
@@ -251,14 +376,12 @@ function calcPrice(){
   var deadline=parseInt(document.querySelector('input[name="deadline"]:checked').value)||0;
   var subtotal;
   if(scene==='10'){
-    // Character Sheet flat rates
     subtotal=chars===1?185:250;
   } else {
     var base=65;
     var bodyVal=parseInt(getBody())||0;
     var bgVal=parseInt(getBg())||0;
     var sceneVal=parseInt(scene)||0;
-    // Per-character add-ons: 2nd char +65, 3rd char +90, 4th char +115
     var charAdd=[0,0,65,90,115][chars]||0;
     subtotal=base+bodyVal+charAdd+bgVal+sceneVal;
   }
