@@ -83,7 +83,7 @@ textarea:focus{border-color:#e8a989;}
     <div class="radio-group">
       <label class="radio-item"><input type="radio" name="scene" value="0" id="sceneOther" checked> Other</label>
       <label class="radio-item" id="sceneSheetLabel"><input type="radio" name="scene" value="10" id="sceneSheet"> Character Sheet</label>
-      <label class="radio-item"><input type="radio" name="scene" value="30" id="sceneScene"> Character Scene</label>
+      <label class="radio-item"><input type="radio" name="scene" value="45" id="sceneScene"> Character Scene</label>
     </div>
     <div class="sheet-adj-msg" id="sheetAdjMsg">Character Sheet only works with 1 or 2 characters. Adjusted to 2.</div>
   </div>
@@ -91,17 +91,17 @@ textarea:focus{border-color:#e8a989;}
     <div class="field-label">Background</div>
     <div class="radio-group">
       <label class="radio-item" id="bgNoneLabel"><input type="radio" name="background" value="0" id="bgNone" checked> No Background</label>
-      <label class="radio-item" id="bgSimpleLabel"><input type="radio" name="background" value="10" id="bgSimple"> Simple Background</label>
-      <label class="radio-item" id="bgAdvanceLabel"><input type="radio" name="background" value="20" id="bgAdvance"> Advance Background</label>
+      <label class="radio-item" id="bgSimpleLabel"><input type="radio" name="background" value="20" id="bgSimple"> Simple Background</label>
+      <label class="radio-item" id="bgAdvanceLabel"><input type="radio" name="background" value="45" id="bgAdvance"> Advance Background</label>
     </div>
   </div>
   <div class="field-block">
     <div class="field-label">Character's Body</div>
     <select id="body">
       <option value="0">Bust</option>
-      <option value="10">Half Body</option>
-      <option value="20">Knee up</option>
-      <option value="30">Full Body</option>
+      <option value="20">Half Body</option>
+      <option value="35">Knee up</option>
+      <option value="55">Full Body</option>
     </select>
     <div class="info-msg" id="sheetBodyMsg"></div>
   </div>
@@ -110,7 +110,7 @@ textarea:focus{border-color:#e8a989;}
   <p class="info-text">This is an estimate. Final price may decrease or increase once we discuss further details.<br>Additional fees for commercial use NOT included!!</p>
   <div class="price-box">
     <div class="price-label">Estimated Price</div>
-    <div class="price-value">$ <span id="priceDisplay">45</span></div>
+    <div class="price-value">$ <span id="priceDisplay">65</span></div>
   </div>
   <p class="info-text">If you wish to proceed with the commission request, please fill in the information below and submit the form. The artist will contact you by email within 2 working days.<br>(If it is an urgent commission, you will be contacted as soon as possible.)</p>
   <div class="form-row">
@@ -140,6 +140,15 @@ textarea:focus{border-color:#e8a989;}
 </div>
 <script>
 var SCRIPT_URL='https://script.google.com/macros/s/AKfycbxROZirZuM57S5NYReHeqUL-IsG4nAxgWfgSRdyeSfJDcROuELe3vO6US_Az0kxmRQR/exec';
+
+// UPDATED PRICING - June 2025
+// Base: $65 (Bust, 1 char, no BG)
+// Half Body: +$20 | Knee-Up: +$35 | Full Body: +$55
+// 2nd Char: +$65 | 3rd Char: +$90 | 4th Char: +$115
+// Simple BG: +$20 | Advanced BG: +$45
+// Character Scene: +$45
+// Sheet 1 char: $185 flat | Sheet 2 char: $250 flat
+// Rush: +10% | Commercial: +20%
 
 function getArtistName(){
   var host=window.location.hostname.toLowerCase();
@@ -191,11 +200,11 @@ function updateRules(){
     bodyEl.disabled=true;
     sheetBodyMsg.style.display='block';
     sheetBodyMsg.textContent=chars===1?'Character sheet with 1 character includes: 1 Full Body + 2 Bust poses.':'Character sheet with 2 characters includes: 1 Full Body + 1 Bust pose.';
-  } else if(scene==='30'){
+  } else if(scene==='45'){
     var slider=document.getElementById('characters');
     slider.max=4;updateSliderLabels();
     if(getBg()==='0') document.getElementById('bgSimple').checked=true;
-    if(getBody()==='0') bodyEl.value='10';
+    if(getBody()==='0') bodyEl.value='20';
     document.getElementById('bgNone').disabled=true;
     document.getElementById('bgNoneLabel').classList.add('disabled');
     document.getElementById('bgSimple').disabled=false;
@@ -218,7 +227,7 @@ function updateRules(){
     sheetBodyMsg.style.display='none';
     if(chars>1){
       bodyEl.querySelector('option[value="0"]').disabled=true;
-      if(bodyEl.value==='0') bodyEl.value='10';
+      if(bodyEl.value==='0') bodyEl.value='20';
     } else {
       bodyEl.querySelector('option[value="0"]').disabled=false;
     }
@@ -242,13 +251,15 @@ function calcPrice(){
   var deadline=parseInt(document.querySelector('input[name="deadline"]:checked').value)||0;
   var subtotal;
   if(scene==='10'){
-    subtotal=chars===1?150:200;
+    // Character Sheet flat rates
+    subtotal=chars===1?185:250;
   } else {
-    var base=45;
+    var base=65;
     var bodyVal=parseInt(getBody())||0;
     var bgVal=parseInt(getBg())||0;
     var sceneVal=parseInt(scene)||0;
-    var charAdd=[0,0,50,75,100][chars]||0;
+    // Per-character add-ons: 2nd char +65, 3rd char +90, 4th char +115
+    var charAdd=[0,0,65,90,115][chars]||0;
     subtotal=base+bodyVal+charAdd+bgVal+sceneVal;
   }
   var afterDeadline=deadline===1?subtotal*1.10:subtotal;
